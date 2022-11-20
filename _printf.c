@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
-#include "main.h"
+#include "hollberton.h"
 
 /**
  * If States 0 Then it will be reguler
