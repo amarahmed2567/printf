@@ -50,16 +50,7 @@ void printfHandel(const char *format, va_list args)
 int _printf(const char *format, ...)
 {
     va_list args;
-    va_start(args,format);
-    printfHandel(format,args);
+    va_start(args, format);
+    printfHandel(format, args);
     va_end(args);
-}
-
-int main()
-{
-    char str1[] = "Hello";
-    char str2[] = "World!";
-    _printf("Character is: %c Done! \n", 'A');
-    _printf("String is: %s %s \n", str1, str2);
-    return 0;
 }
