@@ -2,10 +2,10 @@
 #include <stdarg.h>
 #include "main.h"
 
-/*
-    If States 0 Then it will be reguler
-    If States 1 Then it will be escape
-*/
+/**
+ * If States 0 Then it will be reguler
+ * If States 1 Then it will be escape
+ */
 void printfHandel(const char *format, va_list args)
 {
     int state = 0;
