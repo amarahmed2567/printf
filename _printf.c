@@ -1,56 +1,52 @@
-#include <stdio.h>
 #include <stdarg.h>
-#include "hollberton.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <unistd.h>
+#include "main.h"
 
 /**
- * If States 0 Then it will be reguler
- * If States 1 Then it will be escape
+ * _printf - produces output according to a format
+ * @format: The specified format
+ *
+ * Return: The number of characters that were printed
  */
-void printfHandel(const char *format, va_list args)
-{
-    int state = 0;
-    while (*format)
-    {
-        if (state == 0)
-        {
-            if (*format == '%')
-            {
-                state = 1;
-            }
-            else
-            {
-                putchar(*format);
-            }
-        }
-        else if (state == 1)
-        {
-            switch (*format)
-            {
-            case 'c':
-            {
-                putchar(va_arg(args, int));
-                break;
-            }
-            case 's':
-            {
-                const char *s = va_arg(args, const char *);
-                while (*s)
-                {
-                    putchar(*s++);
-                }
-                break;
-            }
-            }
-            state = 0;
-        }
-        format++;
-    }
-}
-
 int _printf(const char *format, ...)
 {
-    va_list args;
-    va_start(args, format);
-    printfHandel(format, args);
-    va_end(args);
+	int  i = 0, k = 0;
+	int n_displayed = 0;
+	char *str = NULL;
+	va_list args;
+	int (*func)(va_list);
+
+	va_start(args, format);
+
+	while (format[i] != '\0')
+	{
+		if (format[i] != '%')
+		{
+			_putchar(format[i]);
+			n_displayed++;
+		}
+		else if (format[i + 1] == '%')
+		{
+			i++;
+			_putchar('%');
+			n_displayed++;
+		}
+		else
+		{
+			func = _selec_func(format[i + 1]);
+			if (func != NULL)
+			{
+				n_displayed += func(args);
+				i++;
+			}
+		}
+
+		i++;
+	}
+
+	va_end(args);
+	return (n_displayed);
 }
